@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>วิดีโออบรม - ป้องกันการข้าม</title>
+  <!-- Video.js CSS -->
+  <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f5f5f5;
+      padding: 2rem;
+      text-align: center;
+    }
+    .video-container {
+      max-width: 720px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>วิดีโออบรม (กันข้าม/เร่งความเร็ว)</h2>
+  <div class="video-container">
+    <video
+      id="my-video"
+      class="video-js"
+      controls
+      preload="auto"
+      width="720"
+      height="405"
+      data-setup='{}'>
+      <!-- วิดีโอจาก Google Drive (direct link) -->
+      <source src="https://drive.google.com/uc?export=download&id=153ML43wJ-aBcEV62Z3Pct6X3jO6pR-Fv" type="video/mp4" />
+      <p class="vjs-no-js">
+        กรุณาเปิดใช้งาน JavaScript เพื่อดูวิดีโอ
+      </p>
+    </video>
+  </div>
+
+  <!-- Video.js JS -->
+  <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+  <script>
+    const player = videojs('my-video');
+
+    player.ready(() => {
+      const controlBar = player.controlBar;
+
+      // ปิดปุ่มปรับความเร็ว
+      if (controlBar.playbackRateMenuButton) {
+        controlBar.playbackRateMenuButton.hide();
+      }
+
+      // ปิดการคลิกข้าม (seek)
+      const progressControl = controlBar.progressControl;
+      if (progressControl && progressControl.seekBar) {
+        progressControl.seekBar.el().style.pointerEvents = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
